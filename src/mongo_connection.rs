@@ -4,6 +4,8 @@ use rocket::outcome::Outcome;
 use mongodb::sync::Client;
 use mongodb::options::ClientOptions;
 use mongodb::sync::Collection;
+use bson::document::Document;
+use mongodb::bson::doc;
 
 
 
@@ -45,5 +47,25 @@ impl Conn{
     pub fn get_users_collection(self) -> Collection{
         self.0.database("post").collection("users")
     }
+    
+    pub fn find_user_doc(self, user_name: &str) -> Result<Document, String>{
+        let user_collection = self.get_users_collection();
+
+        // find the document describing the user and unwrap it
+        let user_doc = match user_collection.find_one(doc!{"user_name" : user_name}, None){
+            Ok(user1) => user1, 
+            Err(_) => {
+                // TODO: redirect
+                println!("no database");
+                return Err("no database".to_string());
+            }
+        };
+        let user_doc = match user_doc{
+            Some(user) => user,
+             _  =>  return Err("no user".to_string()),
+        };
+        Ok(user_doc)
+    }
+
 }
 

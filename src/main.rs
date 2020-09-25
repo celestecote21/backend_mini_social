@@ -11,6 +11,7 @@ use mongo_connection::init_mongo_client;
 mod user;
 
 pub mod handler;
+pub mod model;
 
 #[launch]
 async fn init_rocket() -> Rocket{

@@ -100,32 +100,15 @@ pub fn sign_up(cookies: &CookieJar<'_>, conn: Conn, sign_up: Json<SignUp>) -> Js
 // route to login with the username and password
 #[post("/login", data = "<login>")]
 pub fn login(cookies: &CookieJar<'_>, conn: Conn, login: Json<Login>) -> Json<LoginResponse> {
-    let user_collection = conn.get_users_collection();
-
-
 
     // find the document describing the user and unwrap it
-    let user_doc = match user_collection.find_one(doc!{"user_name" : &login.user_name[..]}, None){
-        Ok(user1) => user1, 
-        Err(_) => {
-            // TODO: redirect
-            println!("no database");
-            return Json(LoginResponse{
-                result: "no database".to_string(),
-                user: User::new_empty(),
-            });
-        }
+    let user_doc = match conn.find_user_doc(&login.user_name[..]){
+        Ok(user_d) => user_d,
+        Err(e) => return Json(LoginResponse{
+            result: e,
+            user: User::new_empty(),
+        }),
     };
-     let user_doc = match user_doc{
-         Some(user) => user,
-         _  => {
-             println!("{}", &login.user_name[..]);
-             return Json(LoginResponse{
-                result: "bad username".to_string(),
-                user: User::new_empty(),
-            });
-         }
-     }; 
 
     // get the sha of the password in the database
     let password_db = user_doc.get("password").unwrap().as_str().unwrap();
