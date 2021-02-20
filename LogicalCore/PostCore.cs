@@ -1,0 +1,51 @@
+
+using System;
+using System.Net;
+using System.Collections.Generic;
+using netart.Models;
+using netart.Services;
+using netart.Utilities;
+
+namespace netart.LogicalCore
+{
+    public class PostCore
+    {
+        private readonly UserService _userService;
+        private readonly UserCore _userCore;
+        private readonly PostService _postService;
+        // using DEpendency injectiojn to get the service with the connection to the database
+        public PostCore(UserService userService, UserCore userCore, PostService postService)
+        {
+            _userService = userService;
+            _userCore = userCore;
+            _postService = postService;
+        }
+        public List<Post> GetSubscribePost(string username)
+        {
+            var result = new List<Post>();
+            var subscribes = _userCore.GetSubscribesName(username);
+            if (subscribes == null)
+                return null;
+            foreach (var subscribe in subscribes)
+            {
+                var temp = _postService.GetFrom(subscribe);
+                if (temp.Count == 0)
+                    continue;
+                result.AddRange(temp);
+            }
+            if (result.Count == 0)
+                return null;
+            return result;
+        }
+        public Post CreateNew(Post post)
+        {
+            post.CreationDate = DateTime.UtcNow;
+            _postService.Create(post);
+            return post;
+        }
+        public List<Post> GetMyPost(string username)
+        {
+            return _postService.GetFrom(username);
+        }
+    }
+}
