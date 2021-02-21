@@ -6,13 +6,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace netart.Models
 {
-    public class UserComplete: UserCompte
+    public class UserComplete : UserCompte
     {
         public UserCompte ToCompte()
         {
             if (this == null)
                 return null;
-            return new UserCompte{
+            return new UserCompte
+            {
                 Username = this.Username,
                 Follower = this.Follower,
                 Subscribe = this.Subscribe,
@@ -23,22 +24,15 @@ namespace netart.Models
 
         public User ToUser()
         {
-            if(this == null)
+            if (this == null)
                 return null;
-            return new User {
+            return new User
+            {
                 Username = this.Username,
                 Role = this.Role
             };
         }
-        public string Ip
-        {
-            set;
-            get;
-        }
-        public DateTime RegistrationDate
-        {
-            set;
-            get;
-        }
+        public string Ip { set; get; }
+        public DateTime RegistrationDate { set; get; }
     }
 }

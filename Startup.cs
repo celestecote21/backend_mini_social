@@ -36,7 +36,7 @@ namespace netart
 
             services.Configure<PostDatabaseSetting>(
                 Configuration.GetSection(nameof(PostDatabaseSetting)));
-            
+
             services.AddSingleton<IPostDatabaseSetting>(sp =>
                 sp.GetRequiredService<IOptions<PostDatabaseSetting>>().Value);
 

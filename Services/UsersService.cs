@@ -27,11 +27,13 @@ namespace netart.Services
         }
         public User Get(string userName)
         {
-            if (_users == null) {
+            if (_users == null)
+            {
                 return null;
             }
             var user = _users.Find<UserComplete>(user => user.Username == userName).FirstOrDefault();
-            if (user != null) {
+            if (user != null)
+            {
                 return user.ToUser();
             }
             return null;
@@ -39,11 +41,13 @@ namespace netart.Services
 
         public UserCompte GetCompte(string userName)
         {
-            if (_users == null) {
+            if (_users == null)
+            {
                 return null;
             }
             var user = _users.Find<UserComplete>(user => user.Username == userName).FirstOrDefault();
-            if (user != null) {
+            if (user != null)
+            {
                 return user.ToCompte();
             }
             return null;

@@ -31,7 +31,7 @@ namespace netart.Controllers
         {
             var user = _userCore.LoginUser(model, HttpContext.Connection.RemoteIpAddress);
             if (user == null)
-                return BadRequest(new { message ="Usename or password invalid" });
+                return BadRequest(new { message = "Usename or password invalid" });
             var token = TokenService.CreateToken(user);
             return new
             {
@@ -49,7 +49,7 @@ namespace netart.Controllers
             var ipAddress = HttpContext.Connection.RemoteIpAddress;
             var completeUser = _userCore.CreateANewUser(model, ipAddress);
             if (completeUser == null)
-                return BadRequest(new { message = "username already exist"});
+                return BadRequest(new { message = "username already exist" });
             completeUser.Password = "";
             var token = TokenService.CreateToken(completeUser);
             return new

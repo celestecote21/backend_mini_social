@@ -34,7 +34,7 @@ namespace netart.Controllers
             var follower = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             var updatedUser = _relationCore.NewFollowing(follower, subscribe);
             if (updatedUser == null)
-                return BadRequest(new {message = "cannot subscribe to this people"});
+                return BadRequest(new { message = "cannot subscribe to this people" });
             else
                 return updatedUser;
         }
@@ -46,7 +46,7 @@ namespace netart.Controllers
         {
             var userToSend = _relationCore.GetUserCompte(user);
             if (userToSend == null)
-                return BadRequest(new {message = "the user you want don't existe"});
+                return BadRequest(new { message = "the user you want don't existe" });
             else
                 return userToSend;
         }

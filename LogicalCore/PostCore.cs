@@ -40,6 +40,8 @@ namespace netart.LogicalCore
         public Post CreateNew(Post post)
         {
             post.CreationDate = DateTime.UtcNow;
+            post.Like = 0;
+            post.CommentList = new List<string>();
             _postService.Create(post);
             return post;
         }

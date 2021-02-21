@@ -1,4 +1,4 @@
-using System.Text;  
+using System.Text;
 using System.Security.Cryptography;
 
 namespace netart.Utilities
@@ -8,7 +8,8 @@ namespace netart.Utilities
         public string create_sha256(string str)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            using (SHA256 hash = SHA256Managed.Create()) {
+            using (SHA256 hash = SHA256Managed.Create())
+            {
                 Encoding enc = Encoding.UTF8;
                 byte[] result = hash.ComputeHash(enc.GetBytes(str));
 

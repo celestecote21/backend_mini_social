@@ -55,7 +55,7 @@ namespace netart.Controllers
         {
             var username = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             if (username != post.Username)
-                return BadRequest(new {message = "your user can't post here"});
+                return BadRequest(new { message = "your user can't post here" });
             _postCore.CreateNew(post);
             return post;
         }
@@ -68,7 +68,7 @@ namespace netart.Controllers
             var username = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             var posts = _postCore.GetSubscribePost(username);
             if (posts == null)
-                return (new {message = "no post"});
+                return (new { message = "no post" });
             return posts;
         }
 
@@ -80,7 +80,7 @@ namespace netart.Controllers
             var username = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             var posts = _postCore.GetSubscribePost(username);
             if (posts == null)
-                return (new {message = "no post"});
+                return (new { message = "no post" });
             return posts;
         }
 
