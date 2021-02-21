@@ -46,6 +46,13 @@ namespace netart
             services.AddSingleton<PostCore>();
             services.AddSingleton<RelationCore>();
 
+            services.Configure<BucketNameSetting>(
+                Configuration.GetSection(nameof(BucketNameSetting)));
+
+            services.AddSingleton<IBucketNameSetting>(sp =>
+                sp.GetRequiredService<IOptions<BucketNameSetting>>().Value);
+            services.AddSingleton<GoogleStorageService>();
+
             services.AddControllers();
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret);

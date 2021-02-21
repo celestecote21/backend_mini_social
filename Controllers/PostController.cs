@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -56,8 +53,7 @@ namespace netart.Controllers
             var username = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             if (username != post.Username)
                 return BadRequest(new { message = "your user can't post here" });
-            _postCore.CreateNew(post);
-            return post;
+            return _postCore.CreateNew(post);
         }
 
         [HttpGet]

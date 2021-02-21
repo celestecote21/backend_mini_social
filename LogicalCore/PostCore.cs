@@ -42,9 +42,12 @@ namespace netart.LogicalCore
             post.CreationDate = DateTime.UtcNow;
             post.Like = 0;
             post.CommentList = new List<string>();
-            _postService.Create(post);
-            return post;
+            if (post.FileType != null && post.FileType != "none") {
+                post.FileUuid = Guid.NewGuid().ToString();
+            }
+            return _postService.Create(post);
         }
+
         public List<Post> GetMyPost(string username)
         {
             return _postService.GetFrom(username);

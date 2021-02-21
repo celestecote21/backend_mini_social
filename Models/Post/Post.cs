@@ -14,7 +14,7 @@ namespace netart.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public string FileType { get; set; }
-        public string FileUrl { get; set; }
+        public string FileUuid { get; set; }
         public int Like { get; set; }
         public List<string> CommentList { get; set; }
         public DateTime CreationDate { get; set; }

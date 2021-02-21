@@ -7,7 +7,7 @@ namespace netart.Services
 {
     public class PostService
     {
-        private readonly IMongoCollection<Post> _post;
+        private readonly IMongoCollection<Post> _posts;
 
         // Constructeur that get the data in the appsetting file to create the connection and get the db
         // use the interface I think
@@ -16,28 +16,28 @@ namespace netart.Services
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _post = database.GetCollection<Post>(settings.PostCollectionName);
+            _posts = database.GetCollection<Post>(settings.PostCollectionName);
         }
         public List<Post> GetAll()
         {
-            return _post.Find(post => true).ToList();
+            return _posts.Find(post => true).ToList();
         }
         public List<Post> GetFrom(string username)
         {
-            return _post.Find(post => post.Username == username).ToList();
+            return _posts.Find(post => post.Username == username).ToList();
         }
         public Post Get(string userName)
         {
-            return _post.Find<Post>(post => post.Username == userName).FirstOrDefault();
+            return _posts.Find<Post>(post => post.Username == userName).FirstOrDefault();
         }
         public Post Create(Post post)
         {
-            _post.InsertOne(post);
+            _posts.InsertOne(post);
             return post;
         }
         public void Remove(string Id)
         {
-            _post.DeleteOne(post => post.BdId == Id);
+            _posts.DeleteOne(post => post.BdId == Id);
         }
     }
 }
