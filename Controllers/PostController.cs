@@ -25,6 +25,29 @@ namespace netart.Controllers
             _postCore = postCore;
         }
 
+        [HttpGet]
+        [Route("fake")]
+        [AllowAnonymous]
+        public ActionResult<dynamic> FakePost()
+        {
+            return (new[] {
+                        new {
+                            bdId = "string",
+                            username = "string",
+                            title = "string",
+                            content = "string",
+                            creationDate = "2021-02-20T22:31:56.117Z"
+                        },
+                        new {
+                            bdId = "string",
+                            username = "string",
+                            title = "string",
+                            content = "string",
+                            creationDate = "2021-02-20T22:31:56.117Z"
+                        }
+                    });
+        }
+
         [HttpPost]
         [Route("newPost")]
         [Authorize]
@@ -50,9 +73,9 @@ namespace netart.Controllers
         }
 
         [HttpGet]
-        [Route("all/{nb}")]
+        [Route("top")]
         [Authorize]
-        public ActionResult<dynamic> GetAllPost(int nb)
+        public ActionResult<dynamic> GetTopPost()
         {
             var username = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             var posts = _postCore.GetSubscribePost(username);

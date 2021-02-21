@@ -23,5 +23,11 @@ namespace netart.Models
             set; 
             get;
         }
+
+        public UserCompte Hide() {
+            this.Password = null;
+            this.BdId = null;
+            return this;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace netart.Models
             get;
             set;
         }
-        [BsonElement("UserName")]
+
         public string Username
         {
             get;

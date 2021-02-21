@@ -38,8 +38,8 @@ namespace netart.LogicalCore
             var passwordShat = new PasswordSha256().create_sha256(model.Password);
             if (dbUser.Password != passwordShat)
                 return null;
-            dbUser.ToCompte();
-            return dbUser;
+            var dbUserSend = dbUser.ToCompte().Hide();
+            return dbUserSend;
         }
 
         public List<string> GetFollowerName(string username)
