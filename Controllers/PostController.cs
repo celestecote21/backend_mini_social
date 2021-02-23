@@ -69,12 +69,12 @@ namespace netart.Controllers
         }
 
         [HttpGet]
-        [Route("top")]
+        [Route("top/{nb}")]
         [Authorize]
-        public ActionResult<dynamic> GetTopPost()
+        public async Task<ActionResult<dynamic>> GetTopPost(int nb)
         {
             var username = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
-            var posts = _postCore.GetSubscribePost(username);
+            var posts = await _postCore.GetLastPost(100);
             if (posts == null)
                 return (new { message = "no post" });
             return posts;

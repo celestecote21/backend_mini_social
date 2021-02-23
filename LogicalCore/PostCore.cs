@@ -1,6 +1,6 @@
-
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using netart.Models;
 using netart.Services;
@@ -36,6 +36,11 @@ namespace netart.LogicalCore
             if (result.Count == 0)
                 return null;
             return result;
+        }
+
+        public async Task<List<Post>> GetLastPost(int nb)
+        {
+            return await _postService.GetLast(nb);
         }
         public Post CreateNew(Post post)
         {

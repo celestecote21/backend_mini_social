@@ -1,5 +1,8 @@
-using MongoDB.Driver;
+using System;
+using System.Threading.Tasks;
+using System.Linq.Expressions;
 using System.Collections.Generic;
+using MongoDB.Driver;
 using netart.Models;
 
 
@@ -25,6 +28,11 @@ namespace netart.Services
         public List<Post> GetFrom(string username)
         {
             return _posts.Find(post => post.Username == username).ToList();
+        }
+
+        public async Task<List<Post>> GetLast(int nb)
+        {
+            return await _posts.Find(post => true).SortBy(post => post.CreationDate).Limit(nb).ToListAsync();
         }
         public Post Get(string userName)
         {
