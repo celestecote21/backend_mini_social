@@ -40,7 +40,7 @@ namespace netart.Controllers
             };
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("alive")]
         [Authorize]
         public ActionResult<dynamic> IsAlive()
