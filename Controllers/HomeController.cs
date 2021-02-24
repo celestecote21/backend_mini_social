@@ -41,6 +41,16 @@ namespace netart.Controllers
         }
 
         [HttpPost]
+        [Route("alive")]
+        [Authorize]
+        public ActionResult<dynamic> IsAlive()
+        {
+            return new {
+                message = "yes",
+            };
+        }
+
+        [HttpPost]
         [Route("signUp")]
         [AllowAnonymous]
         public ActionResult<dynamic> SignUp([FromBody] User model)

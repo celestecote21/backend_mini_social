@@ -74,7 +74,7 @@ namespace netart.Controllers
         public async Task<ActionResult<dynamic>> GetTopPost(int nb)
         {
             var username = HttpContext.User.FindFirst(ClaimTypes.Name).Value;
-            var posts = await _postCore.GetLastPost(100);
+            var posts = await _postCore.GetLastPost(nb);
             if (posts == null)
                 return (new { message = "no post" });
             return posts;
