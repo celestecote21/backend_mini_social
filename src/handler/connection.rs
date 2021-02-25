@@ -118,12 +118,14 @@ pub fn login(cookies: &CookieJar<'_>, conn: Conn, login: Json<Login>) -> Json<Lo
     let password_sha = encode(hasher.finalize());
     
 
+    let user_doc_temp = user_doc.clone();
     // test if the password is the same
     if password_sha == password_db{
         println!("co");
         // add a cookie in the response, the cookie is the user id encrypeted with a 128bit
         // certificat
-        cookies.add_private(Cookie::new("user_id", 1.to_string()));
+        cookies.add_private(Cookie::new("user_id", user_doc_temp.get_str("user_id").unwrap().to_owned()));
+        cookies.add(Cookie::new("id", user_doc_temp.get_str("user_id").unwrap().to_owned()));
         Json(LoginResponse{
             result: "success".to_string(),
             user: User::from_database(user_doc),

@@ -50,16 +50,23 @@ pub fn new_post(cookies: &CookieJar<'_>, conn: Conn, new_post: Json<Post>) -> Js
 
     //TODO: check also the username
 
-    //TODO: impl an to doc in Post struct
-    new_post.into_inner();
+    let post = new_post.into_inner();
 
+    // insert the post in the database
+    match post_collection.insert_one(post.clone().to_doc(), None){
+        Ok(_) => {},
+        Err(err) => {
+            println!("{}", err);
+            return Json(PostResponse{
+                result: "internal error".to_string(),
+                post: Post::new_empty(),
+            });
+        },
+    }
+
+    // return the responce
     Json(PostResponse{
-        result: "test".to_string(),
-        post: Post{
-            title: "test".to_string(),
-            content: "test".to_string(),
-            user: "celeste".to_string(),
-            categorie: "test".to_string(),
-        }
+        result: "success".to_string(),
+        post,
     })
 }
